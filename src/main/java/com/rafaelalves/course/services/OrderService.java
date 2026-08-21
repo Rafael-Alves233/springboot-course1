@@ -2,6 +2,7 @@ package com.rafaelalves.course.services;
 
 import com.rafaelalves.course.entities.Order;
 import com.rafaelalves.course.repositories.OrderRepository;
+import com.rafaelalves.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,6 @@ public class OrderService {
 
     public Order findById(Long id){
         Optional<Order> obj =  repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
